@@ -1,0 +1,14 @@
+<div class="wdghtml" taskKey="com.javarush.task.task22.task2207">
+<h3>Обращенные слова</h3>
+<p>В методе <mark>main</mark> с консоли считать имя файла, который содержит слова, разделенные пробелами.<br />
+Найти в тексте все пары слов, которые являются <strong>обращением друг друга</strong>. Добавить их в <mark class="user">result</mark>.<br />
+Использовать <mark>StringBuilder</mark>.</p>
+<p><strong>Пример содержимого файла</strong><br />
+<code>рот тор торт о<br />
+о тот тот тот</code></p>
+<p><strong>Вывод:</strong><br />
+<code> рот тор<br />
+о о<br />
+тот тот</code></p>
+
+</div>

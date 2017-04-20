@@ -1,0 +1,9 @@
+<div class="wdghtml" taskKey="com.javarush.task.task22.task2210">
+<h3>StringTokenizer</h3>
+<p>Используя <mark>StringTokenizer</mark> разделить <mark class="user">query</mark> на части по разделителю <strong><span class="text-user">delimiter</span></strong>.</p>
+<p><strong>Пример</strong><br />
+<code>getTokens("level22.lesson13.task01", ".")</code></p>
+<p><strong>Возвращает</strong><br />
+<code>{"level22", "lesson13", "task01"}</code></p>
+
+</div>

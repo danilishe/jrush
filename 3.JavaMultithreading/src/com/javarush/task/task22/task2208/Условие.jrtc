@@ -1,0 +1,10 @@
+<div class="wdghtml" taskKey="com.javarush.task.task22.task2208">
+<h3>Формируем WHERE</h3>
+<p>Сформируй часть запроса <strong><span class="text-corporate">WHERE</span></strong> используя <mark>StringBuilder</mark>.<br />
+Если значение <span class="text-neon"><strong>null</strong></span>, то параметр не должен попадать в запрос.</p>
+<p><strong>Пример:</strong><br />
+<code>{"name", "Ivanov", "country", "Ukraine", "city", "Kiev", "age", null}</code></p>
+<p><strong>Результат:</strong><br />
+<code>"name = 'Ivanov' and country = 'Ukraine' and city = 'Kiev'"</code></p>
+
+</div>
