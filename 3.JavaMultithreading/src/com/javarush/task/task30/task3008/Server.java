@@ -63,25 +63,12 @@ public class Server {
 
 
 /*
- 1) Сформировать и отправить команду запроса имени пользователя
- 2) Получить ответ клиента
- 3) Проверить, что получена команда с именем пользователя
- 4) Достать из ответа имя, проверить, что оно не пустое и пользователь с таким именем еще не подключен (используй connectionMap)
- 5) Добавить нового пользователя и соединение с ним в connectionMap
- 6) Отправить клиенту команду информирующую, что его имя принято
- 7) Если какая-то проверка не прошла, заново запросить имя клиента
- 8) Вернуть принятое имя в качестве возвращаемого значения
-
-
- Требования:
- 1. В классе Handler должен присутствовать метод private String serverHandshake(Connection connection).
- 2. Метод serverHandshake должен отправлять запрос имени используя метод send класса Connection.
- 3. До тех пор, пока тип сообщения полученного в ответ не будет равен MessageType.USER_NAME, запрос имени должен быть выполнен снова.
- 4. В случае, если в ответ пришло пустое имя, запрос имени должен быть выполнен снова.
- 5. В случае, если имя уже содержится в connectionMap, запрос имени должен быть выполнен снова.
- 6. После успешного проведения всех проверок, метод serverHandshake должен добавлять новую пару (имя, соединение) в connectionMap
- и отправлять сообщение о том, что имя было принято.
- 7. Метод serverHandshake должен возвращать имя нового клиента с которым было установлено соединение.
+1) Добавь приватный метод void sendListOfUsers(Connection connection, String userName) throws IOException,
+где connection – соединение с участником, которому будем слать информацию, а userName – его имя. Метод должен:
+2) Пройтись по connectionMap.
+3) У каждого элемента из п.2 получить имя клиента, сформировать команду с типом USER_ADDED и полученным именем.
+4) Отправить сформированную команду через connection.
+5) Команду с типом USER_ADDED и именем равным userName отправлять не нужно, пользователь и так имеет информацию о себе.
  */
 
     private static class Handler extends Thread {
@@ -119,6 +106,19 @@ public class Server {
             connection.send(new Message(MessageType.NAME_ACCEPTED));
 
             return name;
+        }
+
+        private void sendListOfUsers(Connection connection, String userName) throws IOException {
+
+            // рассылаем его участникам
+            for (Map.Entry<String, Connection> connectionEntry:
+            connectionMap.entrySet()) {
+                // отправляем, если это не новый человек
+                if (!connectionEntry.getKey().equals(userName))
+                    connection.send(
+                            new Message( MessageType.USER_ADDED, connectionEntry.getKey() )
+                    );
+            }
         }
 
     }
