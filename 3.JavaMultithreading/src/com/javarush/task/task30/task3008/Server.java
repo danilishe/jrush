@@ -5,8 +5,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.ConcurrentMap;
-
 /**
  * Created by Данил on 19.04.2017.
  1. Статическое поле Map<String, Connection> connectionMap, где ключом будет имя
@@ -32,7 +30,7 @@ public class Server {
             try {
                aConnection.send(message);
             } catch (IOException e) {
-                System.out.println("Ошибка доставки сообщения для " + clientName);
+                ConsoleHelper.writeMessage("Ошибка доставки сообщения для " + clientName);
             }
         }
     }
@@ -43,7 +41,7 @@ public class Server {
 
         try {
             serverSocket = new ServerSocket(port);
-            System.out.println("Сервер запущен...");
+            ConsoleHelper.writeMessage("Сервер запущен...");
             while (true) {
                 Socket connection = serverSocket.accept();
                 new Handler(connection).start();
@@ -63,18 +61,29 @@ public class Server {
 
 
 /*
-Добавь приватный метод void serverMainLoop(Connection connection, String userName) throws IOException, ClassNotFoundException,
-где значение параметров такое же, как и у метода
-sendListOfUsers.
+Реализуем метод void run() в классе Handler.
 
 Он должен:
-1. Принимать сообщение клиента
-2. Если принятое сообщение – это текст (тип TEXT), то формировать новое текстовое сообщение путем
-конкатенации: имени клиента, двоеточия, пробела и текста сообщения.
-Например, если мы получили сообщение с текстом «привет чат» от пользователя «Боб«, то нужно сформировать сообщение «Боб: привет чат«.
-3. Отправлять сформированное сообщение всем клиентам с помощью метода sendBroadcastMessage.
-4. Если принятое сообщение не является текстом, вывести сообщение об ошибке
-5. Организовать бесконечный цикл, внутрь которого перенести функционал пунктов 10.1-10.4.
+1. Выводить сообщение, что установлено новое соединение с
+удаленным адресом, который можно получить с помощью метода getRemoteSocketAddress.
+2. Создавать Connection, используя поле socket.
+3. Вызывать метод, реализующий рукопожатие с клиентом, сохраняя имя нового клиента.
+4. Рассылать всем участникам чата информацию об имени присоединившегося участника
+(сообщение с типом USER_ADDED). Подумай, какой метод подойдет для этого лучше всего.
+5. Сообщать новому участнику о существующих участниках.
+6. Запускать главный цикл обработки сообщений сервером.
+7. Обеспечить закрытие соединения при возникновении исключения.
+8. Отловить все исключения типа IOException и ClassNotFoundException,
+вывести в консоль информацию, что произошла ошибка при обмене данными с удаленным адресом.
+9. После того как все исключения обработаны,
+если п.11.3 отработал и возвратил нам имя, мы должны удалить запись
+для этого имени из connectionMap и разослать всем остальным участникам
+сообщение с типом USER_REMOVED и сохраненным именем.
+
+10. Последнее, что нужно сделать в методе run() – вывести сообщение,
+информирующее что соединение с удаленным адресом закрыто.
+
+Наш сервер полностью готов. Попробуй его запустить.
 
  */
 
@@ -82,6 +91,34 @@ sendListOfUsers.
         private Socket socket;
         public Handler(Socket socket) {
             this.socket = socket;
+        }
+        private String userName;
+
+        public void run () {
+            ConsoleHelper.writeMessage("Соединение с " + socket.getRemoteSocketAddress() + " установлено.");
+            try (Connection connection  = new Connection(socket)){
+                                userName = serverHandshake(connection);
+
+                sendBroadcastMessage(
+                        new Message(MessageType.USER_ADDED, userName)
+                );
+
+                sendListOfUsers(connection, userName);
+                serverMainLoop(connection, userName);
+
+            } catch (IOException | ClassNotFoundException e) {
+                ConsoleHelper.writeMessage("Произошла ошибка при обмене данными с удаленным адресом.");
+            } finally {
+
+                if (userName != null) {
+                    connectionMap.remove(userName);
+                    sendBroadcastMessage(
+                            new Message(MessageType.USER_REMOVED, userName)
+                    );
+                }
+                ConsoleHelper.writeMessage("Соединение закрыто.");
+            }
+
         }
 
         private void serverMainLoop(Connection connection, String userName) throws IOException, ClassNotFoundException{
@@ -93,10 +130,11 @@ sendListOfUsers.
                             new Message(MessageType.TEXT, String.format("%s: %s", userName, receivedMessage.getData()))
                     );
                 else
-                    System.out.println("Ошибка - неверный тип собщения. Ожидается тип TEXT, получен " + receivedMessage.getType());
+                    ConsoleHelper.writeMessage("Ошибка - неверный тип собщения. Ожидается тип TEXT, получен " + receivedMessage.getType());
             }
 
         }
+
         private String serverHandshake(Connection connection) throws IOException, ClassNotFoundException {
             String name = "";
             Message receivedMessage;
