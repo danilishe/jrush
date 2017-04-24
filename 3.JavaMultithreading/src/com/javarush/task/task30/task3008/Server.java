@@ -63,12 +63,19 @@ public class Server {
 
 
 /*
-1) Добавь приватный метод void sendListOfUsers(Connection connection, String userName) throws IOException,
-где connection – соединение с участником, которому будем слать информацию, а userName – его имя. Метод должен:
-2) Пройтись по connectionMap.
-3) У каждого элемента из п.2 получить имя клиента, сформировать команду с типом USER_ADDED и полученным именем.
-4) Отправить сформированную команду через connection.
-5) Команду с типом USER_ADDED и именем равным userName отправлять не нужно, пользователь и так имеет информацию о себе.
+Добавь приватный метод void serverMainLoop(Connection connection, String userName) throws IOException, ClassNotFoundException,
+где значение параметров такое же, как и у метода
+sendListOfUsers.
+
+Он должен:
+1. Принимать сообщение клиента
+2. Если принятое сообщение – это текст (тип TEXT), то формировать новое текстовое сообщение путем
+конкатенации: имени клиента, двоеточия, пробела и текста сообщения.
+Например, если мы получили сообщение с текстом «привет чат» от пользователя «Боб«, то нужно сформировать сообщение «Боб: привет чат«.
+3. Отправлять сформированное сообщение всем клиентам с помощью метода sendBroadcastMessage.
+4. Если принятое сообщение не является текстом, вывести сообщение об ошибке
+5. Организовать бесконечный цикл, внутрь которого перенести функционал пунктов 10.1-10.4.
+
  */
 
     private static class Handler extends Thread {
@@ -77,6 +84,19 @@ public class Server {
             this.socket = socket;
         }
 
+        private void serverMainLoop(Connection connection, String userName) throws IOException, ClassNotFoundException{
+            Message receivedMessage;
+            while (true) {
+                receivedMessage = connection.receive();
+                if (receivedMessage.getType() == MessageType.TEXT)
+                    sendBroadcastMessage(
+                            new Message(MessageType.TEXT, String.format("%s: %s", userName, receivedMessage.getData()))
+                    );
+                else
+                    System.out.println("Ошибка - неверный тип собщения. Ожидается тип TEXT, получен " + receivedMessage.getType());
+            }
+
+        }
         private String serverHandshake(Connection connection) throws IOException, ClassNotFoundException {
             String name = "";
             Message receivedMessage;
