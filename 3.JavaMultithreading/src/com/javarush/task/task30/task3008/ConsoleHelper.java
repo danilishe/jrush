@@ -25,16 +25,18 @@ import java.io.InputStreamReader;
  */
 public class ConsoleHelper {
     private static  BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
+
     public static void writeMessage(String message) {
         System.out.println(message);
     }
+
     public static String readString() {
         String string = "";
         do {
             try {
                 string = bufferedReader.readLine();
             } catch (IOException e) {
-                System.out.println("Произошла ошибка при попытке ввода текста. Попробуйте еще раз.");
+                ConsoleHelper.writeMessage("Произошла ошибка при попытке ввода текста. Попробуйте еще раз.");
             }
         } while (string.length() < 1);
         return string;
@@ -48,7 +50,7 @@ public class ConsoleHelper {
                 number = Integer.parseInt(readString());
                 numberFound = true;
             } catch (NumberFormatException nfe) {
-                System.out.println("Произошла ошибка при попытке ввода числа. Попробуйте еще раз.");
+                ConsoleHelper.writeMessage("Произошла ошибка при попытке ввода числа. Попробуйте еще раз.");
             }
 
         } while (!numberFound);
