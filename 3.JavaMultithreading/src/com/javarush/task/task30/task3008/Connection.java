@@ -43,18 +43,17 @@ public class Connection implements Closeable {
     private final Socket socket;
     private final ObjectOutputStream out;
     private final ObjectInputStream in;
+
     public Connection(Socket aSocket) throws IOException {
         socket = aSocket;
         out = new ObjectOutputStream(socket.getOutputStream());
         in = new ObjectInputStream(socket.getInputStream());
     }
-
     public void send(Message message) throws IOException {
         synchronized (out) {
             out.writeObject(message);
         }
     }
-
     public Message receive() throws IOException, ClassNotFoundException {
         synchronized (in) {
             Message message;
