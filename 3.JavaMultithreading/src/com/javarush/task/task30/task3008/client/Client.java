@@ -97,7 +97,37 @@ public class Client {
             clientConnected = false;
         }
     }
+/*1) void processIncomingMessage(String message) – должен выводить текст message в консоль.
+2) void informAboutAddingNewUser(String userName) – должен выводить в консоль информацию о том,
+что участник с именем userName присоединился к чату.
+3) void informAboutDeletingNewUser(String userName) – должен выводить в консоль,
+что участник с именем userName покинул чат.
+4) void notifyConnectionStatusChanged(boolean clientConnected) – этот метод должен:
+а) Устанавливать значение поля clientConnected внешнего объекта Client в соответствии с переданным параметром.
+б) Оповещать (пробуждать ожидающий) основной поток класса Client.
+
+Подсказка: используй синхронизацию на уровне текущего объекта внешнего класса и метод notify.
+Для класса SocketThread внешним классом является класс Client.*/
 
     public class SocketThread extends Thread {
+        protected void processIncomingMessage(String message) {
+           ConsoleHelper.writeMessage(message);
+        }
+        protected void informAboutAddingNewUser(String userName) {
+            ConsoleHelper.writeMessage("Участник с именем " + userName + " присоединился к чату.");
+        }
+        protected void informAboutDeletingNewUser(String userName) {
+            ConsoleHelper.writeMessage("Участник с именем " + userName + " покинул чат.");
+        }
+        protected void notifyConnectionStatusChanged(boolean clientConnected) {
+            // Метод notifyConnectionStatusChanged должен устанавливать значение поля clientConnected
+            // внешнего объекта Client равным полученному параметру.
+
+            // Метод notifyConnectionStatusChanged должен вызвать метод notify на внешнем объекте Client.
+            synchronized (Client.this) {
+                Client.this.clientConnected = clientConnected;
+                notify();
+            }
+        }
     }
 }
