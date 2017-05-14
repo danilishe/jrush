@@ -3,9 +3,13 @@ package com.javarush.task.task31.task3110;
 import com.javarush.task.task31.task3110.exception.PathIsNotFoundException;
 import com.javarush.task.task31.task3110.exception.WrongZipFileException;
 
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.zip.ZipEntry;
@@ -51,6 +55,79 @@ public class ZipFileManager {
         }
     }
 
+    public void extractAll(Path outputFolder) throws Exception {
+        if (!Files.isRegularFile(zipFile)) {
+            throw new WrongZipFileException();
+        }
+        if (Files.notExists(outputFolder))
+            Files.createDirectories(outputFolder);
+        try (ZipInputStream zipInputStream = new ZipInputStream(Files.newInputStream(zipFile))) {
+            ZipEntry zipEntry;
+            while((zipEntry = zipInputStream.getNextEntry()) != null) {
+                Path fullPath = outputFolder.resolve(zipEntry.getName());
+                if (!Files.exists(fullPath.getParent())) Files.createDirectories(fullPath.getParent());
+
+                if (!zipEntry.isDirectory()) {
+                    try (OutputStream outputStream = Files.newOutputStream(fullPath)) {
+                        copyData(zipInputStream, outputStream);
+                    }
+                }
+                zipInputStream.closeEntry();
+            }
+        }
+    }
+
+    /*
+    * void extractAll(Path outputFolder) throws Exception в класс ZipFileManager. Path outputFolder — это путь,
+    * куда мы будем распаковывать наш архив. У тебя уже большой опыт работы с элементами архива и потоками.
+    * Так что, я дам только подсказки по реализации этого метода, а тебе придется хорошенько подумать, как это все сделать:
+1. Проверь, есть ли zip файл вообще
+2. Если директория outputFolder не существует, то ее нужно создать, как и все папки, внутри которых она лежит.
+3. Внутри архива некоторые файлы могут лежат внутри папок, тогда метод getName() элемента архива ZipEntry,
+вернет не совсем имя, как может показаться из названия, а относительный путь внутри архива. Этот относительный
+путь должен сохраниться и после распаковки, но уже относительно той директории, куда мы распаковали архив
+4. Реализуй метод execute() класса ZipExtractCommand, по аналогии с таким же методом класса ZipCreateCommand,
+сделай такой же блок try-catch, только поменяй сообщения выводимые пользователю, чтобы он понял,
+что сейчас мы будем распаковывать архив, и что нужно ввести полное имя архива и директорию, куда будем распаковывать.
+Не забудь вызвать метод extractAll класса ZipFileManager, а не createZip, как это было в ZipCreateCommand
+5. Запускай программу и наслаждайся результатом распаковки
+
+
+Требования:
+1. В классе ZipFileManager нужно создать публичный метод void extractAll(Path outputFolder) throws Exception.
+2. Метод extractAll(Path outputFolder) должен бросать исключение WrongZipFileException, если файл архива не существует.
+3. Метод extractAll(Path outputFolder) должен создавать директорию outputFolder, если она не существует.
+4. Метод extractAll(Path outputFolder) должен распаковывать все файлы из архива в директорию outputFolder.
+5. Метод execute() в классе ZipExtractCommand должен получать объект ZipFileManager и разархивировать файлы
+в указанную пользователем директорию.
+*/
+
+    public List<FileProperties> getFilesList() throws Exception {
+        // Проверяем существует ли zip файл
+        if (!Files.isRegularFile(zipFile)) {
+            throw new WrongZipFileException();
+        }
+
+        List<FileProperties> files = new ArrayList<>();
+
+        try (ZipInputStream zipInputStream = new ZipInputStream(Files.newInputStream(zipFile))) {
+            ZipEntry zipEntry = zipInputStream.getNextEntry();
+
+            while (zipEntry != null) {
+                // Поля "размер" и "сжатый размер" не известны, пока элемент не будет прочитан
+                // Давайте вычитаем его в какой-то выходной поток
+                ByteArrayOutputStream baos = new ByteArrayOutputStream();
+                copyData(zipInputStream, baos);
+
+                FileProperties file = new FileProperties(zipEntry.getName(), zipEntry.getSize(), zipEntry.getCompressedSize(), zipEntry.getMethod());
+                files.add(file);
+                zipEntry = zipInputStream.getNextEntry();
+            }
+        }
+
+        return files;
+    }
+
     private void addNewZipEntry(ZipOutputStream zipOutputStream, Path filePath, Path fileName) throws Exception {
         Path fullPath = filePath.resolve(fileName);
         try (InputStream inputStream = Files.newInputStream(fullPath)) {
@@ -64,40 +141,7 @@ public class ZipFileManager {
         }
     }
 
-    /*
-1. Добавь метод List<FileProperties> getFilesList() throws Exception в класс ZipFileManager
-2. Внутри метода проверь является ли содержимое zipFile обычным файлом с помощью подходящего метода класса Files.
-Если это не файл, брось исключение WrongZipFileException().
-3. Создай список с элементами типа FileProperties, в него мы будем складывать свойства файлов
-4. Создай входящий поток ZipInputStream, для файла из переменной zipFile. Как и в прошлые разы, оберни его создание в try-with-resources
-5. Пройдись по всем элементам ZipEntry потока ZipInputStream
-6. Для каждого элемента ZipEntry вычитай его содержимое, иначе у нас не будет информации о его размере. Нельзя узнать размер файла в архиве,
-не вычитав его. Это очень легко сделать с помощью функции copyData, используя временный буфер типа ByteArrayOutputStream.
-7. Получи имя, размер, сжатый размер и метод сжатия элемента архива. Посмотри, что еще можно узнать о нем.
-8. Создай объект класса FileProperties, используя полученные данные о файле.
-9. Добавь созданный объект из п.8 в список из п.3
-10. После выхода из цикла верни собранную информацию вызвавшему методу.
-    */
-    public List<FileProperties> getFilesList() throws Exception {
-        if (!Files.isRegularFile(zipFile)) throw new WrongZipFileException();
-        List<FileProperties> filePropertiesList = new ArrayList<>();
 
-        try (ZipInputStream zipInputStream = new ZipInputStream(Files.newInputStream(zipFile))) {
-            ZipEntry zipEntry;
-            while ((zipEntry = zipInputStream.getNextEntry()) != null) {
-                ByteArrayOutputStream tempOutputStream = new ByteArrayOutputStream();
-                copyData(zipInputStream, tempOutputStream);
-                FileProperties fileProperties = new FileProperties(
-                        zipEntry.getName(), zipEntry.getSize(), zipEntry.getCompressedSize(), zipEntry.getMethod()
-                    );
-                filePropertiesList.add(fileProperties);
-
-               zipInputStream.closeEntry();
-            }
-        }
-        return filePropertiesList;
-
-    }
     private void copyData(InputStream in, OutputStream out) throws Exception {
         byte[] buffer = new byte[8 * 1024];
         int len;
