@@ -2,19 +2,20 @@ package com.javarush.task.task31.task3110;
 
 import com.javarush.task.task31.task3110.exception.PathIsNotFoundException;
 import com.javarush.task.task31.task3110.exception.WrongZipFileException;
-
 import java.io.ByteArrayOutputStream;
-import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
+
+import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 
 public class ZipFileManager {
     // Полный путь zip файла
@@ -24,6 +25,58 @@ public class ZipFileManager {
         this.zipFile = zipFile;
     }
 
+    /*1. Добавь публичный метод для удаления файлов из архива void removeFiles(List<Path> pathList) throws Exception
+    в класс ZipFileManager. В pathList будет передаваться список относительных путей на файлы внутри архива.
+Он должен:
+1.1. Бросать исключение WrongZipFileException, если файл архива не существует
+1.2. Создать временный файл архива с помощью метода createTempFile() класса Files
+1.3. Пройтись по всем файлам оригинального архива, проверить, есть ли текущий файл в списке на удаление.
+— Если файл есть в списке, вывести сообщение, что мы удалили файл с таким-то именем и перейти к следующему файлу.
+— Если файла нет в списке на удаление, переписать его в новый архив
+1.4. Заменить оригинальный файл архива временным, в который мы записали нужные файлы.
+Это нужно сделать с помощью метода move() класса Files
+2. Добавь публичный метод void removeFile(Path path) throws Exception в класс ZipFileManager,
+который будет вызывать метод removeFiles, создавая список из одного элемента.
+Это можно сделать с помощью метода singletonList() класса Collections. Посмотри, как он работает.
+3. Реализуй метод execute() класса ZipRemoveCommand, создав объект класса ZipFileManager,
+спросив пользователя из какого архива и какой файл будем удалять, и вызвав метод removeFile().
+Все остальное, как и в других командах. Исключение PathIsNotFoundException можно не ловить, т.к. метод removeFile() не должен его кидать.
+4. Запусти программу и проверить, что удаление файла из архива работает.
+
+*/
+    public void removeFile(Path path) throws Exception {
+        removeFiles(Collections.singletonList(path));
+    }
+    public void removeFiles(List<Path> pathList) throws Exception {
+        if (!Files.isRegularFile(zipFile)) throw new WrongZipFileException();
+        // создаём поток во временный файл
+        Path tempZipFile =  Files.createTempFile(null, null);
+        ZipInputStream origZip = new ZipInputStream(Files.newInputStream(zipFile));
+        ZipOutputStream tempZip =  new ZipOutputStream (Files.newOutputStream(tempZipFile));
+        ZipEntry origZipEntry;
+        while ((origZipEntry = origZip.getNextEntry()) != null) {
+            boolean isInList = false;
+            for (Path path :
+                    pathList) {
+                if (path.equals(Paths.get(origZipEntry.getName()))) {
+                    isInList = true;
+                    ConsoleHelper.writeMessage("'"+path+"' удалён!");
+                }
+            }
+            if (!isInList && !origZipEntry.isDirectory()) {
+                tempZip.putNextEntry(
+                        new ZipEntry(origZipEntry.getName())
+                );
+                copyData(origZip, tempZip);
+                tempZip.closeEntry();
+            }
+            origZip.closeEntry();
+        }
+        origZip.close();
+        tempZip.close();
+
+        Files.move(tempZipFile, zipFile, REPLACE_EXISTING);
+    }
     public void createZip(Path source) throws Exception {
         // Проверяем, существует ли директория, где будет создаваться архив
         // При необходимости создаем ее
@@ -56,51 +109,35 @@ public class ZipFileManager {
     }
 
     public void extractAll(Path outputFolder) throws Exception {
+        // Проверяем существует ли zip файл
         if (!Files.isRegularFile(zipFile)) {
             throw new WrongZipFileException();
         }
-        if (Files.notExists(outputFolder))
-            Files.createDirectories(outputFolder);
-        try (ZipInputStream zipInputStream = new ZipInputStream(Files.newInputStream(zipFile))) {
-            ZipEntry zipEntry;
-            while((zipEntry = zipInputStream.getNextEntry()) != null) {
-                Path fullPath = outputFolder.resolve(zipEntry.getName());
-                if (!Files.exists(fullPath.getParent())) Files.createDirectories(fullPath.getParent());
 
-                if (!zipEntry.isDirectory()) {
-                    try (OutputStream outputStream = Files.newOutputStream(fullPath)) {
-                        copyData(zipInputStream, outputStream);
-                    }
+        try (ZipInputStream zipInputStream = new ZipInputStream(Files.newInputStream(zipFile))) {
+            // Создаем директорию вывода, если она не существует
+            if (Files.notExists(outputFolder))
+                Files.createDirectories(outputFolder);
+
+            // Проходимся по содержимому zip потока (файла)
+            ZipEntry zipEntry = zipInputStream.getNextEntry();
+
+            while (zipEntry != null) {
+                String fileName = zipEntry.getName();
+                Path fileFullName = outputFolder.resolve(fileName);
+
+                // Создаем необходимые директории
+                Path parent = fileFullName.getParent();
+                if (Files.notExists(parent))
+                    Files.createDirectories(parent);
+
+                try (OutputStream outputStream = Files.newOutputStream(fileFullName)) {
+                    copyData(zipInputStream, outputStream);
                 }
-                zipInputStream.closeEntry();
+                zipEntry = zipInputStream.getNextEntry();
             }
         }
     }
-
-    /*
-    * void extractAll(Path outputFolder) throws Exception в класс ZipFileManager. Path outputFolder — это путь,
-    * куда мы будем распаковывать наш архив. У тебя уже большой опыт работы с элементами архива и потоками.
-    * Так что, я дам только подсказки по реализации этого метода, а тебе придется хорошенько подумать, как это все сделать:
-1. Проверь, есть ли zip файл вообще
-2. Если директория outputFolder не существует, то ее нужно создать, как и все папки, внутри которых она лежит.
-3. Внутри архива некоторые файлы могут лежат внутри папок, тогда метод getName() элемента архива ZipEntry,
-вернет не совсем имя, как может показаться из названия, а относительный путь внутри архива. Этот относительный
-путь должен сохраниться и после распаковки, но уже относительно той директории, куда мы распаковали архив
-4. Реализуй метод execute() класса ZipExtractCommand, по аналогии с таким же методом класса ZipCreateCommand,
-сделай такой же блок try-catch, только поменяй сообщения выводимые пользователю, чтобы он понял,
-что сейчас мы будем распаковывать архив, и что нужно ввести полное имя архива и директорию, куда будем распаковывать.
-Не забудь вызвать метод extractAll класса ZipFileManager, а не createZip, как это было в ZipCreateCommand
-5. Запускай программу и наслаждайся результатом распаковки
-
-
-Требования:
-1. В классе ZipFileManager нужно создать публичный метод void extractAll(Path outputFolder) throws Exception.
-2. Метод extractAll(Path outputFolder) должен бросать исключение WrongZipFileException, если файл архива не существует.
-3. Метод extractAll(Path outputFolder) должен создавать директорию outputFolder, если она не существует.
-4. Метод extractAll(Path outputFolder) должен распаковывать все файлы из архива в директорию outputFolder.
-5. Метод execute() в классе ZipExtractCommand должен получать объект ZipFileManager и разархивировать файлы
-в указанную пользователем директорию.
-*/
 
     public List<FileProperties> getFilesList() throws Exception {
         // Проверяем существует ли zip файл
@@ -140,8 +177,10 @@ public class ZipFileManager {
             zipOutputStream.closeEntry();
         }
     }
-
-
+/*
+*  @param in
+*  @param out
+*  */
     private void copyData(InputStream in, OutputStream out) throws Exception {
         byte[] buffer = new byte[8 * 1024];
         int len;
