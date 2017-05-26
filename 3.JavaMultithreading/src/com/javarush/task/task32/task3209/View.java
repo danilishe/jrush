@@ -12,13 +12,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Created by Данил on 20.05.2017.
- * 3.1. Добавь и проинициализируй поля в классе представления:
- 3.1.1. JTabbedPane tabbedPane — это будет панель с двумя вкладками.
- 3.1.2. JTextPane htmlTextPane — это будет компонент для визуального редактирования html.
- Он будет размещен на первой вкладке.
- 3.1.3. JEditorPane plainTextPane — это будет компонент для редактирования html в виде текста,
- он будет отображать код html (теги и их содержимое).
+ Реализуем метод actionPerformed(ActionEvent actionEvent) у представления,
+ этот метод наследуется от интерфейса ActionListener и будет вызваться при выборе пунктов меню,
+ у которых наше представление указано в виде слушателя событий.
+ 19.1. Получи из события команду с помощью метода getActionCommand(). Это будет обычная строка.
+ По этой строке ты можешь понять какой пункт меню создал данное событие.
+ 19.2. Если это команда «Новый«, вызови у контроллера метод createNewDocument().
+ В этом пункте и далее, если необходимого метода в контроллере еще нет — создай заглушки.
+ 19.3. Если это команда «Открыть«, вызови метод openDocument().
+ 19.4. Если «Сохранить«, то вызови saveDocument().
+ 19.5. Если «Сохранить как…» — saveDocumentAs().
+ 19.6. Если «Выход» — exit().
+ 19.7. Если «О программе«, то вызови метод showAbout() у представления.
+ Проверь, что заработали пункты меню Выход и О программе.
+
+
  */
 public class View extends JFrame implements ActionListener {
     private Controller controller;
@@ -27,20 +35,31 @@ public class View extends JFrame implements ActionListener {
     private JEditorPane plainTextPane = new JEditorPane();
     private UndoManager undoManager = new UndoManager();
 
+    public void selectedTabChanged() {
+        int selectedTab = tabbedPane.getSelectedIndex();
+        if (selectedTab == 0) controller.setPlainText(plainTextPane.getText());
+        if (selectedTab == 1) plainTextPane.setText(controller.getPlainText());
+        resetUndo();
+    }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String command = e.getActionCommand();
+        if ("Новый".equals(command)) controller.createNewDocument();
+        if ("Открыть".equals(command)) controller.openDocument();
+        if ("Сохранить".equals(command)) controller.saveDocument();
+        if ("Сохранить как...".equals(command)) controller.saveDocumentAs();
+        if ("Выход".equals(command)) controller.exit();
+        if ("О программе".equals(command)) showAbout();
+
+
+    }
     public UndoListener getUndoListener() {
         return undoListener;
     }
-
     public boolean isHtmlTabSelected() {
         if (tabbedPane.getSelectedIndex() == 0) return true;
         return false;
     }
-
-    /*114.3. Добавь в представление метод update(), который должен получать документ у контроллера и устанавливать его в панель
-редактирования htmlTextPane.
-14.4. Добавь в представление метод showAbout(), который должен показывать диалоговое окно с информацией о программе.
-Информацию придумай сам, а вот тип сообщения должен быть JOptionPane.INFORMATION_MESSAGE.
-*/
     public void update(){
         htmlTextPane.setDocument(
             controller.getDocument());
@@ -52,7 +71,6 @@ public class View extends JFrame implements ActionListener {
         tabbedPane.setSelectedIndex(0);
         resetUndo();
     }
-
     public void setUndoListener(UndoListener undoListener) {
         this.undoListener = undoListener;
     }
@@ -126,7 +144,6 @@ public class View extends JFrame implements ActionListener {
         pack();
     }
 
-    public void selectedTabChanged() {}
 
     public Controller getController() {
         return controller;
@@ -146,10 +163,7 @@ public class View extends JFrame implements ActionListener {
         controller.exit();
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
 
-    }
 
     public boolean canUndo() {
         return undoManager.canUndo();
