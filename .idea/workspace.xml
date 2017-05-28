@@ -2,25 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8a9c2848-0864-419d-ba1c-a0669c6ee00f" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task29/task2909/car/Cabriolet.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task29/task2909/car/Sedan.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task29/task2909/car/Truck.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task29/task2909/human/BloodGroup.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task29/task2909/user/Address.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task29/task2909/user/House.java" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task22/task2207/Solution.java" afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task22/task2207/Solution.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task22/task2207/Условие.jrtc" afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task22/task2207/Условие.jrtc" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task23/task2312/KeyboardObserver.java" afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task23/task2312/KeyboardObserver.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task23/task2312/Mouse.java" afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task23/task2312/Mouse.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task23/task2312/Room.java" afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task23/task2312/Room.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task23/task2312/Snake.java" afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task23/task2312/Snake.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task23/task2312/SnakeDirection.java" afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task23/task2312/SnakeDirection.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task23/task2312/SnakeSection.java" afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task23/task2312/SnakeSection.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task23/task2312/Условие.jrtc" afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task23/task2312/Условие.jrtc" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task29/task2909/car/Car.java" afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task29/task2909/car/Car.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task29/task2909/human/Human.java" afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task29/task2909/human/Human.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task29/task2909/human/Student.java" afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task29/task2909/human/Student.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task29/task2909/human/StudentsDataBase.java" afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task29/task2909/human/StudentsDataBase.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task29/task2909/human/Worker.java" afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task29/task2909/human/Worker.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task29/task2909/user/User.java" afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task29/task2909/user/User.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task29/task2909/user/UserHelper.java" afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task29/task2909/user/UserHelper.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task29/task2909/Условие.jrtc" afterPath="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task29/task2909/Условие.jrtc" />
     </list>
     <ignored path="JavaRushTasks.iws" />
@@ -42,83 +28,7 @@
     <favorites_list name="JavaRushTasks" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Условие.jrtc" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task29/task2909/Условие.jrtc">
-          <provider selected="true" editor-type-id="EditorTypeId">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Car.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task29/task2909/car/Car.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="580">
-              <caret line="102" column="27" lean-forward="true" selection-start-line="102" selection-start-column="27" selection-end-line="102" selection-end-column="27" />
-              <folding>
-                <element signature="method#Car#0;class#Car#0" expanded="false" />
-                <element signature="method#create#0;class#Car#0" expanded="false" />
-                <element signature="method#fill#0;class#Car#0" expanded="false" />
-                <element signature="method#isSummer#0;class#Car#0" expanded="false" />
-                <element signature="method#getTripConsumption#0;class#Car#0" expanded="false" />
-                <element signature="method#getNumberOfPassengersCanBeTransferred#0;class#Car#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Sedan.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task29/task2909/car/Sedan.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="14" column="1" lean-forward="true" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
-              <folding>
-                <element signature="e#164#165#0" expanded="true" />
-                <element signature="e#212#213#0" expanded="true" />
-                <element signature="e#258#259#0" expanded="true" />
-                <element signature="e#296#297#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Cabriolet.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task29/task2909/car/Cabriolet.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="11" column="30" lean-forward="true" selection-start-line="11" selection-start-column="30" selection-end-line="11" selection-end-column="30" />
-              <folding>
-                <element signature="e#173#174#0" expanded="true" />
-                <element signature="e#225#226#0" expanded="true" />
-                <element signature="e#313#314#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Валидация" pinned="false" current-in-tab="true">
-        <entry file="file://$USER_HOME$/AppData/Local/Temp/Валидация">
-          <provider selected="true" editor-type-id="EditorTypeId">
-            <state />
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Truck.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task29/task2909/car/Truck.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="252">
-              <caret line="14" column="1" lean-forward="true" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
-              <folding>
-                <element signature="e#165#166#0" expanded="true" />
-                <element signature="e#213#214#0" expanded="true" />
-                <element signature="e#259#260#0" expanded="true" />
-                <element signature="e#297#298#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -165,9 +75,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task30/task3008/Server.java" />
-        <option value="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task30/task3008/client/Client.java" />
-        <option value="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task27/task2701/Solution.java" />
         <option value="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task27/task2702/Solution.java" />
         <option value="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task27/task2703/Solution.java" />
         <option value="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task27/task2704/Solution.java" />
@@ -211,11 +118,14 @@
         <option value="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task29/task2909/human/Worker.java" />
         <option value="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task29/task2909/human/BloodGroup.java" />
         <option value="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task29/task2909/human/Human.java" />
-        <option value="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task29/task2909/Условие.jrtc" />
         <option value="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task29/task2909/car/Sedan.java" />
         <option value="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task29/task2909/car/Truck.java" />
         <option value="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task29/task2909/car/Cabriolet.java" />
         <option value="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task29/task2909/car/Car.java" />
+        <option value="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task29/task2909/Условие.jrtc" />
+        <option value="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task29/task2909/user/UserHelper.java" />
+        <option value="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task29/task2909/user/Address.java" />
+        <option value="$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task29/task2909/user/User.java" />
       </list>
     </option>
   </component>
@@ -590,6 +500,40 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="task2909" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="JavaRushTasks" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="JavaRushTasks" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="3.JavaMultithreading" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="task" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="task29" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="task2909" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="user" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -1161,7 +1105,14 @@
       <option name="project" value="LOCAL" />
       <updated>1495918886060</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Доделываю разные старые тупые задачки">
+      <created>1495995553909</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1495995553909</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
@@ -1169,7 +1120,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -1186,7 +1136,8 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.22707888" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19989339" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1200,7 +1151,6 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Documentation" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="FLOATING" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" x="92" y="92" width="1736" height="856" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32936078" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -1254,7 +1204,8 @@
     </ignored-roots>
     <MESSAGE value="Решен HTML редактор" />
     <MESSAGE value="Попилил змейку и мелкие задачки" />
-    <option name="LAST_COMMIT_MESSAGE" value="Попилил змейку и мелкие задачки" />
+    <MESSAGE value="Доделываю разные старые тупые задачки" />
+    <option name="LAST_COMMIT_MESSAGE" value="Доделываю разные старые тупые задачки" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1283,68 +1234,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task32/task3209/Условие.jrtc">
-      <provider selected="true" editor-type-id="EditorTypeId">
-        <state />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task32/task3209/HTMLFileFilter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="16" column="12" lean-forward="false" selection-start-line="16" selection-start-column="12" selection-end-line="16" selection-end-column="12" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task32/task3209/View.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="940">
-          <caret line="66" column="4" lean-forward="false" selection-start-line="66" selection-start-column="4" selection-end-line="66" selection-end-column="4" />
-          <folding>
-            <element signature="method#selectedTabChanged#0;class#View#0" expanded="false" />
-            <element signature="method#isHtmlTabSelected#0;class#View#0" expanded="false" />
-            <element signature="method#View#0;class#View#0" expanded="false" />
-            <element signature="method#undo#0;class#View#0" expanded="false" />
-            <element signature="method#redo#0;class#View#0" expanded="false" />
-            <element signature="method#initMenuBar#0;class#View#0" expanded="false" />
-            <element signature="method#initEditor#0;class#View#0" expanded="false" />
-            <element signature="method#initGui#0;class#View#0" expanded="false" />
-            <element signature="method#init#0;class#View#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task32/task3209/Controller.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-620">
-          <caret line="28" column="31" lean-forward="true" selection-start-line="28" selection-start-column="31" selection-end-line="29" selection-end-column="36" />
-          <folding>
-            <element signature="method#setPlainText#0;class#Controller#0" expanded="false" />
-            <element signature="method#createNewDocument#0;class#Controller#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task31/task3110/ZipFileManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="526">
-          <caret line="143" column="0" lean-forward="true" selection-start-line="143" selection-start-column="0" selection-end-line="143" selection-end-column="0" />
-          <folding>
-            <element signature="method#createZip#0;class#ZipFileManager#0" expanded="false" />
-            <element signature="e#916#983#0" expanded="false" />
-            <element signature="method#addFile#0;class#ZipFileManager#0" expanded="false" />
-            <element signature="method#addFiles#0;class#ZipFileManager#0" expanded="false" />
-            <element signature="method#extractAll#0;class#ZipFileManager#0" expanded="false" />
-            <element signature="method#removeFile#0;class#ZipFileManager#0" expanded="false" />
-            <element signature="method#removeFiles#0;class#ZipFileManager#0" expanded="false" />
-            <element signature="method#getFilesList#0;class#ZipFileManager#0" expanded="false" />
-            <element signature="e#8486#8564#0" expanded="false" />
-            <element signature="method#addNewZipEntry#0;class#ZipFileManager#0" expanded="false" />
-            <element signature="method#copyData#0;class#ZipFileManager#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_73/src.zip!/java/util/Random.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="426">
@@ -1709,11 +1598,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task29/task2909/Условие.jrtc">
-      <provider selected="true" editor-type-id="EditorTypeId">
-        <state />
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task29/task2909/car/Cabriolet.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="198">
@@ -1754,7 +1638,64 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task29/task2909/user/House.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="4" column="1" lean-forward="true" selection-start-line="4" selection-start-column="1" selection-end-line="4" selection-end-column="1" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task29/task2909/user/Work.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="3" column="24" lean-forward="true" selection-start-line="3" selection-start-column="24" selection-end-line="3" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task29/task2909/user/Address.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="33" column="5" lean-forward="false" selection-start-line="33" selection-start-column="5" selection-end-line="33" selection-end-column="5" />
+          <folding>
+            <element signature="docComment;class#Address#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task29/task2909/user/UserHelper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="366">
+          <caret line="26" column="42" lean-forward="false" selection-start-line="26" selection-start-column="42" selection-end-line="26" selection-end-column="42" />
+          <folding>
+            <element signature="e#887#888#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task29/task2909/user/User.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="13" column="0" lean-forward="true" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+          <folding>
+            <element signature="e#374#375#0" expanded="true" />
+            <element signature="e#411#412#0" expanded="true" />
+            <element signature="e#445#446#0" expanded="true" />
+            <element signature="e#541#542#0" expanded="true" />
+            <element signature="method#User#0;class#User#0" expanded="false" />
+            <element signature="method#printInfo#0;class#User#0" expanded="false" />
+            <element signature="method#printAdditionalInfo#0;class#User#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$USER_HOME$/AppData/Local/Temp/Валидация">
+      <provider selected="true" editor-type-id="EditorTypeId">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/3.JavaMultithreading/src/com/javarush/task/task29/task2909/Условие.jrtc">
       <provider selected="true" editor-type-id="EditorTypeId">
         <state />
       </provider>
