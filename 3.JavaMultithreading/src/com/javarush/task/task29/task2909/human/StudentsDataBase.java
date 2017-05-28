@@ -17,8 +17,10 @@ public class StudentsDataBase {
     }
 
     public static void removeStudent(int index) {
-        if (!students.isEmpty() && students.size() > index)
-            students.remove(index);
+        try {
+            if (students != null && students.size() > index)
+                students.remove(index);
+        } catch (Exception e) {}
     }
 
     public static void findDimaOrSasha() {
