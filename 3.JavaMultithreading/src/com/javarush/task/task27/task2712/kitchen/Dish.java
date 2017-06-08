@@ -4,7 +4,17 @@ package com.javarush.task.task27.task2712.kitchen;
  * Created by danilishe on 29.05.2017.
  */
 public enum Dish {
-    Fish, Steak, Soup, Juice, Water;
+    Fish(25), Steak(30), Soup(15), Juice(5), Water(3);
+
+    Dish(int duration) {
+        this.duration = duration;
+    }
+
+    public int getDuration() {
+        return duration;
+    }
+    
+    private int duration;
 
     public static String allDishesToString() {
         StringBuffer result = new StringBuffer();
