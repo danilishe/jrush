@@ -2,3 +2,5 @@
 *.iml
 *.jrtc
 /out/
+/.idea/workspace.xml
+
