@@ -62,8 +62,8 @@ public class Field {
      * Если координаты за пределами матрицы, метод возвращает null.
      */
     public Integer getValue(int x, int y) {
-        if (x >= 0 && x < width && y >= 0 && y < height)
-            return matrix[y][x];
+        if (x >= 0 && x < width && y >= 0 && y < height);
+//            return matrix[y][x];
 
         return null;
     }
@@ -133,7 +133,7 @@ public class Field {
     public void removeFullLines() {
         //Например так:
         //Создаем список для хранения линий
-        int[][] canvas; // = new int[height][width];
+        int[][] canvas = new int[height][width];
         int dissolvedLinesCount = 0;
 
         for (int y = height - 1; y >= 0; y--) {
