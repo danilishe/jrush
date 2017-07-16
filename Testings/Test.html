@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<script>
+
+
+    const isLogging = true;   // отладочные сообщения
+
+const currency = 58.0;	  // курс валюты
+const tempSensor = 450;   // стоимость датчика температуры (руб)
+
+const fee = 0.7;          // наценка на все материалы
+const taxPerModule = 150; // наценка на работу за 1 модуль
+const minTax = 500;       // минимальная стоимость работ
+const rounding = 500;     // округление общей стоимости строки
+
+const profileWidth = 2.5; // Ширина профиля в см (для подсчёта ширины рамки)
+
+const module = {   // параметры модулей
+	HEIGHT: 16,    // высота модуля в см
+	WIDTH: 32,     // ширина модуля в см
+	POWER: 25,     // мощность 1 модуля (Вт)
+	            // цены модулей
+	RED: 6.00,	// красных
+	OTHER_COLOR: 8.74	// любых других
+}
+
+const block = {  // блоки питания
+	POWER: 200,  // мощность блока питания
+	PRICE: 12.0   // цена блока питания в валюте
+}
+
+const controller = [  // стоимость и параметры контроллеров
+	// название     цена  максДл максВыс
+	["Listen A2C",   3.5,   320,    32],
+	["Listen U4",   10.0,  1024,    64],
+	["Listen U8",   17.0,  1024,   128]
+];
+
+const body = {  // стомость прочих комплектующих
+	PROFILE : 2.50,  // профиля за метр
+	CORNER  : 0.44,  // уголок за 1 шт
+	BOLT    : 0.08,  // болт за 1 шт
+	USB     : 1.50   // кабель усб за 1 шт
+}
+
+// возвращает размер в модулях
+function getSizeInModules(size, moduleSize) {
+	return Math.ceil(size / moduleSize);
+}
+
+// возвращает стоимость по размерам в cм
+function getPriceBySize(width, height, color, isTempSensor, discount) {
+	// делаем запас для рамки
+  width -= profileWidth * 2;
+  height -= profileWidth * 2;
+	if (width > 0 & height > 0) {
+		var widthInModules = getSizeInModules(width, module.WIDTH);
+		var heightInModules = getSizeInModules(height, module.HEIGHT);
+		logger("Размер " + widhInModules + "х" + heightInModules + " = " heightInModules * widhInModules + " модулей");
+		return getPriceByModules(widthInModules, heightInModules, color, isTempSensor, discount);
+	} else {
+		logger("getPriceBySize - Ошибка: неверно указан размер.");
+	}
+}
+
+// определяем контроллер в зависимости от размеров
+function getController(widthInModules, heightInModules){
+	for (i = 0; i < controller.length; i++) {
+		if (controller[i][3] >= heightInModules * module.HEIGHT) {
+			if (controller[i][2] >= widthInModules * module.WIDTH) {
+      	console.info("Выбран контроллер " + controller[i]);
+				return controller[i];
+			}
+		}
+	}
+	logger("getController - Не удалось подобрать контроллер!");
+	return null;
+}
+
+function logger(message) {
+	if (isLogging) {
+		console.log(message);
+	}
+}
+
+// возвращает стоимость по размерам в модулях
+// основной модуль подсчёта, остальные используют его.
+//							ширина			высота			цвет	 датчик?     скидка в %
+function getPriceByModules(widthInModules, heightInModules, color, isTempSensor, discount) {
+	if (widthInModules > 0 & heightInModules > 0) {
+		if (color == null) color = "red";
+		if (isTempSensor == null) isTempSensor = false;
+		if (discount == null) discount = 0;
+
+		logger("Размер " + widhInModules * module.WIDTH + "х" + heightInModules * module.HEIGHT + " см");
+		var cost = 0;  // себестоимость в валюте
+		var price = 0; // финальная стоимость в рублях
+		// определяем стоимость модуля исходя из переданного цвета
+		var moduleCost = (color == "red") ? module.RED : module.OTHER_COLOR;
+		// определяем стоимость работы в рублях
+		var costOfWork = widthInModules * heightInModules * taxPerModule;
+		if (costOfWork < minTax) { // если стоимость работ ниже минимальной
+			costOfWork = minTax;	// приравниваем стоимость работ к минимальной
+		}
+		logger("Стоимость работ: " + costOfWork);
+
+		// добавляем стоимость модулей
+		cost += moduleCost * heightInModules * widthInModules;
+
+		// добавляем стоимость блоков питания
+		cost += getPowerBlocksAmount(widthInModules, heightInModules) * block.PRICE;
+		// определяем какой нужен контроллер и его стоимость
+		var contr = getController(widthInModules, heightInModules);
+		if (contr != null) {
+			cost += contr[1];
+		} else { // в случае ошибки вываливаемся из метода
+			alert("Ошибка при калькуляции строки. Используйте ручной подсчёт, или попробуйте изменить параметры расчёта");
+		}
+
+		// добавляем стоимость прочего оборудования
+		// профиля
+		cost += body.PROFILE * getPerimetr(widthInModules, heightInModules) / 100;
+		// уголков
+		cost += body.CORNER * 4;
+		// болт-магнитов
+		cost += body.BOLT * 4 * heightInModules * widthInModules;
+		// усб-кабеля
+		cost += body.USB;
+
+
+		// переводим себестоимость в рубли
+		price = cost * currency;
+		// добавляем наценку
+		price +=  price * fee;
+		// добавляем стоимость работ
+		price += costOfWork;
+		logger("Стоимость без округления: " + price);
+
+		// округляем
+		price = Math.ceil(price / rounding) * rounding;
+		logger("Стоимость с округлением: " + price);
+
+		// делаем скидку (после округления, так  как скидка может сожраться в округлении)
+		if (discount > 0) {
+			price -= price * discount / 100;
+			logger("Со скидкой: " + price);
+		}
+
+		// добавляем стоимость датчика, если нужен
+		if (isTempSensor == true) price += tempSensor;
+		return price;
+
+	} else {
+		logger("getPriceByModules - Ошибка: неверно указан размер.");
+	}
+}
+// возвращает периметр по размеру в модулях
+function getPerimetr(modulesX, modulesY) {
+	if (modulesX > 0 & modulesY > 0) {
+  	var perimetr = ((module.WIDTH * modulesX + module.HEIGHT * modulesY) * 2);
+		logger("Периметр " + perimetr);
+		return perimetr;
+	} else {
+		logger("getPerimetr - Ошибка: неверно указан размер.");
+	}
+}
+
+// возвращает количество блоков питания по размерам в модулях
+function getPowerBlocksAmount (modulesX, modulesY) {
+	if (modulesX > 0 & modulesY > 0) {
+  	var blockCount = Math.ceil(getPower(modulesX, modulesY) / block.POWER);
+    logger("Блоков питания требуется:" + blockCount);
+		return blockCount;
+	} else {
+		logger("getPowerBlocksAmount - Ошибка: неверно указан размер.");
+	}
+}
+
+// возвращает мощность по размерам в модулях
+function getPower(modulesX, modulesY) {
+	if (modulesX > 0 & modulesY > 0) {
+  	var power = modulesX * modulesY * module.POWER;
+    logger("Мощность максимальная:" + power);
+		return power;
+	} else {
+		logger("getPower - Ошибка: неверно указан размер.");
+	}
+}
+
+
+</script>>
+</body>
+</html>

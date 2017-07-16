@@ -16,8 +16,8 @@ public class Solution {
             InputStream inputStream = new FileInputStream(your_file_name);
 
             ClassWithStatic classWithStatic = new ClassWithStatic();
-            classWithStatic.i = Integer.MAX_VALUE;
-            classWithStatic.j = 8855;
+            classWithStatic.i = 3;
+            classWithStatic.j = 4;
             classWithStatic.save(outputStream);
             outputStream.flush();
 
@@ -28,7 +28,7 @@ public class Solution {
 
             loadedObject.load(inputStream);
             //check here that classWithStatic object equals to loadedObject object - проверьте тут, что classWithStatic и loadedObject равны
-            System.out.println(classWithStatic.equals(loadedObject));
+
             outputStream.close();
             inputStream.close();
 
@@ -48,22 +48,10 @@ public class Solution {
 
         public void save(OutputStream outputStream) throws Exception {
             //implement this method - реализуйте этот метод
-            BufferedWriter bos = new BufferedWriter(new OutputStreamWriter(outputStream));
-            bos.write(i >> 16); bos.write(i);
-            bos.write(j >> 16); bos.write(j);
-            bos.write(staticString);
-            System.out.println(i + ":" + j + ":" + staticString);
-            bos.close();
         }
 
         public void load(InputStream inputStream) throws Exception {
             //implement this method - реализуйте этот метод
-            BufferedReader bor = new BufferedReader(new InputStreamReader(inputStream));
-            i = (0 | (bor.read() << 16) | (bor.read()));
-            j = (0 | (bor.read() << 16) | (bor.read()));
-            staticString = bor.readLine();
-            System.out.println(i + ":" + j + ":" + staticString);
-            bor.close();
         }
 
         @Override

@@ -1,6 +1,5 @@
 package com.javarush.task.task33.task3304;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -8,20 +7,35 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.io.StringReader;
 import java.io.StringWriter;
+import java.lang.annotation.Annotation;
+import java.lang.reflect.AnnotatedType;
+import java.util.Arrays;
 
 /* 
 Конвертация из одного класса в другой используя JSON
 */
 public class Solution {
     public static void main(String[] args) throws IOException {
+
         Second s = (Second) convertOneToAnother(new First(), Second.class);
-        System.out.println(s);
         First f = (First) convertOneToAnother(new Second(), First.class);
-        System.out.println(f);
     }
 
     public static Object convertOneToAnother(Object one, Class resultClassObject) throws IOException {
+
+        ObjectMapper om = new ObjectMapper();
         StringWriter writer = new StringWriter();
+        om.writeValue(stringWriter, one);
+
+        String oneClassName = one.getClass().getSimpleName().toLowerCase();
+        String resultClassName = resultClassObject.getSimpleName().toLowerCase();
+        String jsonStr = stringWriter.toString().replaceFirst(oneClassName, resultClassName);
+
+        StringReader stringReader = new StringReader(jsonStr);
+        Object result = om.readValue(jsonStr, resultClassObject);
+        return result;
+        /*
+//        StringWriter writer = new StringWriter();
         ObjectMapper mapper = new ObjectMapper();
         mapper.writeValue(writer, one);
         System.out.println(writer.toString());

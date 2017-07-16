@@ -1,5 +1,6 @@
 package com.javarush.task.task31.task3105;
 
+import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -7,6 +8,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
@@ -15,42 +19,56 @@ import java.util.zip.ZipOutputStream;
 Добавление файла в архив
 */
 public class Solution {
-    public static void main(String[] args) throws IOException {
-//        String fileName = "c:/tmp/base.dat";
-//        String zipName = "c:/tmp/test2.zip";
-        String fileName = args[0];
-        String zipName = args[1];
-        ZipEntry newFile = new ZipEntry("new" + fileName.substring(fileName.lastIndexOf('/')));
-        Path tempFile = Files.createTempFile(null, null);
+/*    public static void main(String[] args) throws IOException {
+        Map<ZipEntry, ByteArrayOutputStream> contentOfZipFile = new HashMap<>();
+
+        String fullFileName = "c:/tmp/base.dat";
+        String zipName = "c:/tmp/test2.zip";
+//        String fullFileName = args[0];
+//        String zipName = args[1];
+
+        String fileName = fullFileName.substring(fullFileName.lastIndexOf('/'));
+
         ZipInputStream inputStream = new ZipInputStream(new FileInputStream(zipName));
-        ZipOutputStream outputStream = new ZipOutputStream(new FileOutputStream(tempFile.toString()));
+
+        boolean containsName = false;
+
         ZipEntry zipEntry;
         while ((zipEntry = inputStream.getNextEntry()) != null) {
-            if (zipEntry.getName().equals(newFile.getName().toString())) continue;
-            outputStream.putNextEntry(zipEntry);
             if (!zipEntry.isDirectory()) {
-                while (inputStream.available() > 0) {
-                    byte[] entry = new byte[1024];
-                    int len = inputStream.read(entry);
-                    if (len > 0)
-                        outputStream.write(entry, 0, len);
+                if (zipEntry.getName().contains(fileName)) {
+                    containsName = true;
+                    byte[] newFile = Files.readAllBytes(Paths.get(fullFileName));
+                    contentOfZipFile.put(zipEntry, newFile);
+                } else {
+                    int len = 0;
+                    ByteArrayOutputStream buffer = new ByteArrayOutputStream();
+                    byte[] entry = new byte[2048];
+                    while ((len = inputStream.read(entry)) > 0) {
+                        buffer.write(entry, 0, len);
+                        contentOfZipFile.put(zipEntry, buffer);
+                    }
                 }
-                outputStream.closeEntry();
-                inputStream.closeEntry();
             }
+            inputStream.closeEntry();
         }
         inputStream.close();
 
-        //ZipEntry newDir = new ZipEntry("new");
+        ZipOutputStream outputStream = new ZipOutputStream(new FileOutputStream(zipName));
 
-        outputStream.putNextEntry(newFile);
+        if (!containsName) { // Добавляем файл, если он НЕ содержался в зип архиве
+            ZipEntry newFile = new ZipEntry("new" + fileName);
+            byte[] newFileContent = Files.readAllBytes(Paths.get(fullFileName));
+            contentOfZipFile.put(newFile, newFileContent);
+            outputStream.closeEntry();
+        }
 
-        Path inputFile = Paths.get(fileName);
-        byte[] content = Files.readAllBytes(inputFile);
-        outputStream.write(content);
-        outputStream.closeEntry();
+        for (Map.Entry<ZipEntry, byte[]> entry: contentOfZipFile.entrySet()) { // Добавляем все файлы из зип архива, в т.ч. с подменой
+            outputStream.putNextEntry(entry.getKey());
+            outputStream.write(entry.getValue());
+            outputStream.closeEntry();
+        }
+
         outputStream.close();
-
-        Files.move(tempFile, Paths.get(zipName), StandardCopyOption.REPLACE_EXISTING);
-    }
+    }*/
 }
