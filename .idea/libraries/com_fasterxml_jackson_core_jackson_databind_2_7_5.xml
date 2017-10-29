@@ -3,8 +3,6 @@
     <properties maven-id="com.fasterxml.jackson.core:jackson-databind:2.7.5" />
     <CLASSES>
       <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-databind/2.7.5/jackson-databind-2.7.5.jar!/" />
-      <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-annotations/2.7.0/jackson-annotations-2.7.0.jar!/" />
-      <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/core/jackson-core/2.7.5/jackson-core-2.7.5.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
